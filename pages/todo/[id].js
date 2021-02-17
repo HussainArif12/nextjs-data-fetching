@@ -9,7 +9,7 @@ export default function TodoInfo({ todo }) {
   );
 }
 
-export const getServerSideProps = async (context) => {
+export const getStaticProps = async (context) => {
   const res = await fetch(
     `https://jsonplaceholder.typicode.com/todos/${context.params.id}`
   );
@@ -19,5 +19,18 @@ export const getServerSideProps = async (context) => {
     props: {
       todo,
     },
+  };
+};
+export const getStaticPaths = async () => {
+  const res = await fetch(`https://jsonplaceholder.typicode.com/todos/`);
+  const todos = await res.json();
+
+  const paths = todos.map((item) => ({
+    params: { id: item.id.toString() },
+  }));
+
+  return {
+    paths: [{ params: { id: "1" } }, { params: { id: "2" } }],
+    fallback: false,
   };
 };
