@@ -30,7 +30,12 @@ export const getStaticPaths = async () => {
   }));
 
   return {
-    paths: [{ params: { id: "1" } }, { params: { id: "2" } }],
+    paths,
     fallback: false,
   };
+  //to only show two paths:
+  /* return {
+    paths: [{ params: { id: "1" } }, { params: { id: "2" } }],
+    fallback: false,
+  }; */
 };
